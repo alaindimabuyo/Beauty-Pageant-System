@@ -1,0 +1,720 @@
+Imports MySql.Data.MySqlClient
+Imports System.IO
+Imports System.Data
+Public Class totalcriteria
+    Dim BindingSource1 As New BindingSource
+    Public dbconn As New MySqlConnection
+    Public sql As String
+    Public dbcomm As MySqlCommand
+    Public dbread As MySqlDataReader
+    Public dadap As MySqlDataAdapter
+    Public ds As DataSet
+    Public dbdataset As DataTable
+
+
+
+
+
+    Private Sub totacriteria_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        dbconn = New MySqlConnection("Data Source=localhost;user id=root;database=pageant;")
+        Try
+            dbconn.Open()
+        Catch ex As Exception
+            MsgBox("Error in connection, please check Database and connection server.")
+        End Try
+
+
+        If form5.TextBox1.Text = "j1" Then
+
+            Button1.Enabled = False
+
+        ElseIf form5.TextBox1.Text = "j2" Then
+
+            Button1.Enabled = False
+
+        ElseIf form5.TextBox1.Text = "j3" Then
+
+            Button1.Enabled = False
+
+        Else
+            Button1.Enabled = False
+
+
+
+        End If
+
+
+        
+        
+
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
+        Me.Hide()
+        Form1.Show()
+
+    End Sub
+
+
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        dbconn = New MySqlConnection("Data Source=localhost;user id=root;database=pageant;")
+        Try
+            dbconn.Open()
+        Catch ex As Exception
+            MsgBox("Error in connection, please check Database and connection server.")
+        End Try
+
+        If TextBox1.Text >= 101 Then
+            MsgBox("Cannot add")
+        Else
+
+            If ComboBox1.Text = "fantasy" Then
+                sql = "insert into fantasy_total (personality,uniqueness,Poise,AudienceImp,Fantasy_total )  values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+
+                dbconn.Close()
+
+                refreshdatagrid()
+                MsgBox("saved")
+
+
+
+            ElseIf ComboBox1.Text = "talent" Then
+                sql = "insert into talenttotal(showmanship,mastery,performance,Costume,talent_total) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+
+                refreshdatagrid()
+                MsgBox("saved")
+
+
+            ElseIf ComboBox1.Text = "formal wear" Then
+                sql = "insert into formalweartotal(personality,suitability_of_attire,Poise,Audience_Impact,formalweartotal) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+                refreshdatagrid()
+                MsgBox("saved")
+
+            ElseIf ComboBox1.Text = "black and white " Then
+                sql = "insert into blackandwhitetotal(personality,suitability_of_attire,Poise,Audience_Impact,blackandwhitetotal) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+                refreshdatagrid()
+                MsgBox("saved")
+            ElseIf ComboBox1.Text = "swim wear" Then
+                sql = "insert into swim_wear_total(personality,Suitability_of_Attire,Poise,Audience_Impact,swimweartotal) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+                refreshdatagrid()
+                MsgBox("saved")
+            ElseIf ComboBox1.Text = "question and answer " Then
+                sql = "insert into question_total(Stage_Presence,Delivery,Intelligence_Interpretation,Audience_Imp,questiontotal) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+                refreshdatagrid()
+                MsgBox("saved")
+
+            Else
+                MsgBox("error")
+
+
+
+            End If
+        End If
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+
+
+
+    End Sub
+
+
+
+    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
+
+
+    End Sub
+
+    Private Sub Button4_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+    End Sub
+
+    Private Sub Button5_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub DataGridView1_CellMouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
+
+    End Sub
+
+
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
+        If TextBox1.Text >= 100 Then
+
+            MsgBox("Cannot be saved")
+        Else
+            dbconn.Open()
+            If ComboBox1.Text = "fantasy" Then
+                sql = "update fantasy_total set personality = '" & TextBox2.Text & "', uniqueness = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audienceimp = '" & TextBox5.Text & "', fantasy_total ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+
+            ElseIf ComboBox1.Text = "talent" Then
+                sql = "update talenttotal set Showmanship = '" & TextBox2.Text & "', Mastery = '" & TextBox3.Text & "', Performance = '" & TextBox4.Text & "' , Costume = '" & TextBox5.Text & "', Talent_Total ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf ComboBox1.Text = "formal wear" Then
+                sql = "update formalweartotal set Personality = '" & TextBox2.Text & "', Suitability_of_Attire = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audience_Impact = '" & TextBox5.Text & "', FormalwearTotal ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf ComboBox1.Text = "black and white " Then
+                sql = "update blackandwhitetotal set personality = '" & TextBox2.Text & "', Suitability_of_Attire = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audience_Impact = '" & TextBox5.Text & "', blackandwhitetotal ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf ComboBox1.Text = "swim wear" Then
+                sql = "update swim_wear_total set personality = '" & TextBox2.Text & "', Suitability_of_Attire = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audience_Impact = '" & TextBox5.Text & "', swimweartotal ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf ComboBox1.Text = "question and answer" Then
+                sql = "update question_total set question_total = '" & TextBox2.Text & "', Delivery = '" & TextBox3.Text & "', Intelligence_Interpretation = '" & TextBox4.Text & "' , Audience_Imp = '" & TextBox5.Text & "', questiontotal ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            End If
+        End If
+    End Sub
+    Public Sub refreshdatagrid()
+        If ComboBox1.Text = "fantasy" Then
+            sql = "select * from fantasy_total"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "fantasy_total")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "fantasy_total"
+        ElseIf ComboBox1.Text = "talent" Then
+            sql = "select * from talenttotal"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "talenttotal")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "talenttotal"
+        ElseIf ComboBox1.Text = "formal wear" Then
+            sql = "select * from formalweartotal"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "formalweartotal")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "formalweartotal"
+        ElseIf ComboBox1.Text = "black and white " Then
+            sql = "select * from blackandwhitetotal"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "blackandwhitetotal")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "blackandwhitetotal"
+        ElseIf ComboBox1.Text = "swim wear" Then
+            sql = "select * from swim_wear_total"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "swim_wear_total")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "swim_wear_total"
+        ElseIf ComboBox1.Text = "question and answer " Then
+            sql = "select * from question_total"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "question_total")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "question_total"
+        End If
+    End Sub
+    Private Sub TextBox5_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox5.TextChanged
+        Dim txt2, txt3, txt4, txt5 As Single
+
+        Dim sum As String
+
+        txt2 = TextBox2.Text
+
+        txt3 = TextBox3.Text
+
+        txt4 = TextBox4.Text
+
+        txt5 = TextBox5.Text
+
+        sum = (txt3 + txt2 + txt4 + txt5)
+
+        TextBox1.Text = sum
+        'Try
+
+        'declaring variable as integer to store the value of the total rows in the datagridview
+
+        'Dim max As Integer = DataGridView1.Rows.Count - 1
+        'Dim total As String = "Total ----------->"
+        'getting the values of a specific rows
+
+
+        ' For Each row As DataGridViewRow In DataGridView1.Rows
+        'formula for adding the values in the rows
+        ' DataGridView1.Rows(max).Cells(4).Value += row.Cells(4).Value
+        ' DataGridView1.Rows(max).Cells(3).Value = total
+        ' Next
+        ' Catch ex As Exception
+        'MsgBox(ex.Message)
+        ' End Try
+        If TextBox5.Text >= 101 Then
+            MsgBox("Value must Less than 100")
+        End If
+    End Sub
+
+
+
+    Private Sub report_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+    End Sub
+
+
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        sql = "select personality as '" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+    End Sub
+
+    Private Sub DataGridView1_ColumnHeaderMouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
+
+
+
+    End Sub
+
+    Private Sub DataGridView1_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
+
+    Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'showing the reports
+        report.Show()
+        'getting the crystal report and placing it on the crystal report viewer using the report documents that represent as a studentInfo.rpt
+        report.CrystalReportViewer1.ReportSource = report.crystalReport11
+    End Sub
+
+    Private Sub TextBox7_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+
+
+    Private Sub TextBox2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox2.TextChanged
+
+
+        If TextBox2.Text >= 101 Then
+
+            MsgBox("Value must Less than 100")
+
+        End If
+    End Sub
+
+    Private Sub DataGridView1_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        Dim ROW As DataGridViewRow
+        
+    End Sub
+
+    Private Sub TextBox6_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox6.TextChanged
+
+    End Sub
+
+    Private Sub TextBox3_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
+        If TextBox3.Text >= 101 Then
+            MsgBox("Value must Less than 100")
+        End If
+    End Sub
+
+    Private Sub TextBox4_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
+        If TextBox4.Text >= 101 Then
+            MsgBox("Value must Less than 100")
+        End If
+    End Sub
+
+    Private Sub Label8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
+
+    End Sub
+
+
+    Private Sub Button3_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+
+        If ComboBox1.Text = "fantasy" Then
+            sql = "SELECT * FROM Fantasy WHERE fantasy.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM fantasy2 WHERE fantasy2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM fantasy3 WHERE fantasy3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+        ElseIf ComboBox1.Text = "talent" Then
+            sql = "SELECT * FROM talent WHERE talent.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM talent2 WHERE talent2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM talent3 WHERE talent3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+        ElseIf ComboBox1.Text = "formal wear" Then
+            sql = "SELECT * FROM formalwear WHERE formalwear.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM formalwear2 WHERE formalwear2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM formalwear3 WHERE formalwear3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+        ElseIf ComboBox1.Text = "black and white " Then
+            sql = "SELECT * FROM blackandwhite WHERE blackandwhite.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM blackandwhite2 WHERE blackandwhite2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM blackandwhite3 WHERE blackandwhite3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+        ElseIf ComboBox1.Text = "swim wear" Then
+            sql = "SELECT * FROM swimwear WHERE swimwear.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM swimwear2 WHERE swimwear2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM swimwear3 WHERE swimwear3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+        ElseIf ComboBox1.Text = "question and answer" Then
+            sql = "SELECT * FROM question WHERE question.`Candidate`= '" & TextBox6.Text & "'  UNION SELECT * FROM question2 WHERE question2.`Candidate`= '" & TextBox6.Text & "' UNION SELECT * FROM question3 WHERE question3.`Candidate`= '" & TextBox6.Text & "'"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "category")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "category"
+       
+
+        End If
+
+
+
+
+    End Sub
+    Private Function Total() As Double
+        
+    End Function
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        If ComboBox1.Text = "fantasy" Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("Personality").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("uniqueness").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("poise").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("audienceimp").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("fantasy_total1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+
+        ElseIf ComboBox1.Text = "talent" Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("showmanship").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("mastery").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("performance").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("costume").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("talent_total1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+        ElseIf ComboBox1.Text = "formal wear" Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("personality").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("suitability_of_attire").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("poise").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("audience_impact").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("total_formal_wear1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+        ElseIf ComboBox1.Text = "black and white " Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("personality").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("suitability_of_attire").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("poise").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("audience_impact").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("blackandwhite_total1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+        ElseIf ComboBox1.Text = "swim wear" Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("personality").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("suitability_of_attire").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("poise").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("audience_impact").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("swimwear_total1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+        ElseIf ComboBox1.Text = "question and answer" Then
+            Dim sum, sum1, sum2, sum3, sum4 As Double
+            Dim roundval As Double
+
+            For i = 0 To DataGridView1.RowCount - 1
+                sum += DataGridView1.Rows(i).Cells("stage_presence").Value()
+            Next
+            TextBox2.Text = sum / 3
+            If Double.TryParse(TextBox2.Text, roundval) Then
+                TextBox2.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum1 += DataGridView1.Rows(i).Cells("delivery").Value()
+            Next
+            TextBox3.Text = sum1 / 3
+            If Double.TryParse(TextBox3.Text, roundval) Then
+                TextBox3.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum2 += DataGridView1.Rows(i).Cells("intelligence_interpretation").Value()
+            Next
+            TextBox4.Text = sum2 / 3
+            If Double.TryParse(TextBox4.Text, roundval) Then
+                TextBox4.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum3 += DataGridView1.Rows(i).Cells("audience_imp").Value()
+            Next
+            TextBox5.Text = sum3 / 3
+            If Double.TryParse(TextBox5.Text, roundval) Then
+                TextBox5.Text = (Math.Round(roundval, 0))
+            End If
+            For i = 0 To DataGridView1.RowCount - 1
+                sum4 += DataGridView1.Rows(i).Cells("q_a_total1").Value()
+            Next
+            TextBox1.Text = sum4 / 3
+            If Double.TryParse(TextBox1.Text, roundval) Then
+                TextBox1.Text = (Math.Round(roundval, 0))
+            End If
+
+
+
+
+
+
+
+
+
+        End If
+    End Sub
+End Class

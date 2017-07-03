@@ -1,0 +1,108 @@
+Imports MySql.Data.MySqlClient
+
+Public Class form5
+    'create a public function and set your MySQL Connection .
+    Public Function mysqlconnection() As MySqlConnection
+        'return new connection.
+        Return New MySqlConnection("server=localhost;user id=root;database=pageant")
+    End Function
+
+    'put the value of mysqlconnection() as MySQL connection to con.
+    Public con As MySqlConnection = mysqlconnection()
+    'declaring the classes
+    'a set of command in MySQL
+    Dim cmd As New MySqlCommand
+
+    'represent a new spicific table in the database
+    Public dt As New DataTable
+    'serve as the bridge of mysql database and the datatable for saving and retrieving data.
+    Public da As New MySqlDataAdapter
+    Public sql As String
+    Public attemp As Integer
+
+    'create a sub procedure named "loginUser" and the parameter's type is string
+    Public Sub loginUser(ByVal sql As String)
+        Try
+            'declaring the variable as integer
+            Dim maxrow As Integer
+            'open the connection
+            con.Open()
+            'it will set a new specific table in the database
+            dt = New DataTable
+            'set a command
+            With cmd
+                'holds the data 
+                .Connection = con
+                .CommandText = sql
+            End With
+            'retriving the data
+            da.SelectCommand = cmd
+            da.Fill(dt)
+            'put the max value of rows in the table to a variable(maxrow)
+            maxrow = dt.Rows.Count
+            'conditioning the total value of rows in the table
+            'if the total value of rows in the table is greater than 0 then the result is true
+            ' and if not, the result is false
+            If maxrow <> 0 Then
+                'appearing the record of the current row and the current column in the current table.
+                MsgBox(" Welcome " & TextBox1.Text & " ", vbInformation, " Login Information ")
+                Form1.Show()
+               
+                Me.Hide()
+            Else
+                attemp = attemp + 1
+                MsgBox("Error Login / Username & Password Incorrect " & attemp & " of 3", MsgBoxStyle.Critical, "Attemp Login")
+                If attemp = 3 Then
+                    MsgBox("Sorry you reach the maximum login attemp", vbInformation, "Attemp Login")
+                    Me.Hide()
+                End If
+                'the result is false
+                ' MsgBox("Account does not exist.")
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        con.Close()
+        da.Dispose()
+    End Sub
+
+    Private Sub btnlogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnlogin.Click
+
+        If TextBox1.Text = "" Then
+            btnlogin.Enabled = False
+            MsgBox("Enter username", vbInformation, "Incorrect Username")
+            Exit Sub
+        End If
+        If password.Text = "" Then
+            btnlogin.Enabled = False
+            MsgBox("Enter password", vbInformation, "Incorrect Password")
+            Exit Sub
+        End If
+
+        'put the string value to sql  
+        sql = "SELECT * from tbluser WHERE username = '" & TextBox1.Text & "' and Password = '" & TextBox2.Text & "'"
+        'call your sub name and put the sql in the parameters list.
+        loginUser(sql)
+
+    End Sub
+
+    Private Sub login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        TextBox1.Focus()
+        btnlogin.Enabled = False
+    End Sub
+    Private Sub password_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles password.Click
+        Dim ms As String
+        ms = (MsgBox("are you sure you want to exit", vbCritical = vbOKCancel, "Exit Program"))
+        If ms = vbOK Then
+            Me.Close()
+        End If
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
+        btnlogin.Enabled = True
+    End Sub
+
+
+End Class

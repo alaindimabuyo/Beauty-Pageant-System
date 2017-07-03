@@ -1,0 +1,412 @@
+Imports MySql.Data.MySqlClient
+Imports System.IO
+Imports System.Data
+Public Class Fantasy
+    Dim BindingSource1 As New BindingSource
+    Public dbconn As New MySqlConnection
+    Public sql As String
+    Public dbcomm As MySqlCommand
+    Public dbread As MySqlDataReader
+    Public dadap As MySqlDataAdapter
+    Public ds As DataSet
+    Public dbdataset As DataTable
+
+
+
+
+
+    Private Sub Fantasy_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        dbconn = New MySqlConnection("Data Source=localhost;user id=root;database=pageant;")
+        Try
+            dbconn.Open()
+        Catch ex As Exception
+            MsgBox("Error in connection, please check Database and connection server.")
+        End Try
+
+
+        Button8.Enabled = False
+
+
+        If form5.TextBox1.Text = "j1" Then
+            TextBox7.Text = "1"
+            Button1.Enabled = False
+            TextBox7.Enabled = False
+        ElseIf form5.TextBox1.Text = "j2" Then
+            TextBox7.Text = "2"
+            Button1.Enabled = False
+            TextBox7.Enabled = False
+        ElseIf form5.TextBox1.Text = "j3" Then
+            TextBox7.Text = "3"
+            Button1.Enabled = False
+            TextBox7.Enabled = False
+        Else
+            Button1.Enabled = True
+            TextBox7.Enabled = True
+
+
+        End If
+
+  
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
+        TextBox2.Text = ""
+        TextBox3.Text = ""
+        TextBox4.Text = ""
+        TextBox5.Text = ""
+
+
+
+    End Sub
+
+
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        dbconn = New MySqlConnection("Data Source=localhost;user id=root;database=pageant;")
+        Try
+            dbconn.Open()
+        Catch ex As Exception
+            MsgBox("Error in connection, please check Database and connection server.")
+        End Try
+
+        If TextBox1.Text >= 101 Then
+            MsgBox("Cannot add")
+        Else
+
+            If TextBox7.Text = "1" Then
+                sql = "insert into fantasy (personality,uniqueness,Poise,AudienceImp,Fantasy_total1) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+
+                ' While dbread.Read
+                'TextBox2.Text = dbread.GetString("Personality")
+                'TextBox3.Text = dbread.GetString("Uniqueness")
+                'TextBox4.Text = dbread.GetString("Poise")
+                'TextBox5.Text = dbread.GetString("AudienceImp")
+                'TextBox1.Text = dbread.GetString("total")
+                'End While
+
+
+                dbconn.Close()
+
+                refreshdatagrid()
+
+
+
+            ElseIf TextBox7.Text = "2" Then
+                sql = "insert into fantasy2 (personality,uniqueness,Poise,AudienceImp,Fantasy_total2) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+
+                refreshdatagrid()
+
+
+            ElseIf TextBox7.Text = "3" Then
+                sql = "insert into fantasy3 (personality,uniqueness,Poise,AudienceImp,Fantasy_total3) values('" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dadap = New MySqlDataAdapter(dbcomm)
+                dbread = dbcomm.ExecuteReader()
+                dbconn.Close()
+                refreshdatagrid()
+            End If
+        End If
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+
+
+
+    End Sub
+
+
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+
+
+
+    End Sub
+
+    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
+
+     
+    End Sub
+
+    Private Sub Button4_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+    End Sub
+
+    Private Sub Button5_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub DataGridView1_CellMouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
+        
+    End Sub
+
+
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
+        If TextBox1.Text >= 101 Then
+
+            MsgBox("Cannot be saved")
+        Else
+            dbconn.Open()
+            If TextBox7.Text = "1" Then
+                sql = "update fantasy set personality = '" & TextBox2.Text & "', uniqueness = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audienceimp = '" & TextBox5.Text & "', fantasy_total1 ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf TextBox7.Text = "2" Then
+                sql = "update fantasy2 set personality = '" & TextBox2.Text & "', uniqueness = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audienceimp = '" & TextBox5.Text & "', fantasy_total2 ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            ElseIf TextBox7.Text = "3" Then
+                sql = "update fantasy3 set personality = '" & TextBox2.Text & "', uniqueness = '" & TextBox3.Text & "', Poise = '" & TextBox4.Text & "' , Audienceimp = '" & TextBox5.Text & "', fantasy_total3 ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+
+                dbcomm = New MySqlCommand(sql, dbconn)
+                dbread = dbcomm.ExecuteReader
+                MsgBox("USER SUCCESSFULY UPDATED")
+                dbconn.Close()
+                refreshdatagrid()
+            End If
+        End If
+    End Sub
+    Public Sub refreshdatagrid()
+        If TextBox7.Text = "1" Then
+            sql = "select * from fantasy"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "fantasy")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "fantasy"
+        ElseIf TextBox7.Text = "2" Then
+            sql = "select * from fantasy2"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "fantasy")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "fantasy"
+        ElseIf TextBox7.Text = "3" Then
+            sql = "select * from fantasy3"
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "fantasy")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "fantasy"
+        End If
+    End Sub
+    Private Sub TextBox5_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox5.TextChanged
+        Dim txt2, txt3, txt4, txt5 As String
+
+        Dim sum As Double
+
+
+        txt2 = TextBox2.Text
+
+        txt3 = TextBox3.Text
+
+        txt4 = TextBox4.Text
+
+        txt5 = TextBox5.Text
+
+        sum = (txt3 + txt2 + txt4 + txt5)
+
+        TextBox1.Text = sum
+        
+        If TextBox5.Text >= 11 Then
+            MsgBox("Value must Less than 10%")
+        End If
+    End Sub
+
+
+
+    Private Sub report_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+       
+    End Sub
+
+
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        sql = "select personality as '" & TextBox2.Text & "', '" & TextBox3.Text & "', '" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox1.Text & "')"
+    End Sub
+
+    Private Sub DataGridView1_ColumnHeaderMouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
+
+
+
+    End Sub
+
+    Private Sub DataGridView1_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+        
+    End Sub
+
+    Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'showing the reports
+        report.Show()
+        'getting the crystal report and placing it on the crystal report viewer using the report documents that represent as a studentInfo.rpt
+        report.CrystalReportViewer1.ReportSource = report.crystalReport11
+    End Sub
+
+    Private Sub TextBox7_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox7.TextChanged
+        If TextBox7.Text = "1" Then
+            sql = "select * from fantasy "
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "candidate")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "candidate"
+
+        ElseIf TextBox7.Text = "2" Then
+
+            sql = "select * from fantasy2 "
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "candidate")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "candidate"
+
+        ElseIf TextBox7.Text = "3" Then
+            sql = "select * from fantasy3 "
+            dbcomm = New MySqlCommand(sql, dbconn)
+            dadap = New MySqlDataAdapter(dbcomm)
+            ds = New DataSet
+            dadap.Fill(ds, "candidate")
+            dbconn.Close()
+            DataGridView1.DataSource = ds
+            DataGridView1.DataMember = "candidate"
+
+
+
+        End If
+    End Sub
+
+
+
+    Private Sub TextBox2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox2.TextChanged
+        
+
+        If TextBox2.Text >= 26 Then
+
+            MsgBox("Value must Less than 25%")
+
+        End If
+    End Sub
+
+    Private Sub DataGridView1_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+
+        If TextBox7.Text = "1" Then
+            Dim ROW As DataGridViewRow
+            If e.RowIndex >= 0 Then
+
+                ' Button7.Enabled = True
+                ROW = Me.DataGridView1.Rows(e.RowIndex)
+                TextBox6.Text = ROW.Cells("candidate").Value.ToString
+                TextBox2.Text = ROW.Cells("Personality").Value.ToString
+                TextBox3.Text = ROW.Cells("Uniqueness").Value.ToString
+                TextBox4.Text = ROW.Cells("Poise").Value.ToString
+                TextBox5.Text = ROW.Cells("AudienceImp").Value.ToString
+                TextBox1.Text = ROW.Cells("fantasy_total1").Value.ToString
+                Button8.Enabled = True
+
+            End If
+        ElseIf TextBox7.Text = "2" Then
+            Dim ROW As DataGridViewRow
+            If e.RowIndex >= 0 Then
+
+                ' Button7.Enabled = True
+                ROW = Me.DataGridView1.Rows(e.RowIndex)
+                TextBox6.Text = ROW.Cells("candidate").Value.ToString
+                TextBox2.Text = ROW.Cells("Personality").Value.ToString
+                TextBox3.Text = ROW.Cells("Uniqueness").Value.ToString
+                TextBox4.Text = ROW.Cells("Poise").Value.ToString
+                TextBox5.Text = ROW.Cells("AudienceImp").Value.ToString
+                TextBox1.Text = ROW.Cells("fantasy_total2").Value.ToString
+                Button8.Enabled = True
+
+            End If
+        ElseIf TextBox7.Text = "3" Then
+            Dim ROW As DataGridViewRow
+            If e.RowIndex >= 0 Then
+
+                ' Button7.Enabled = True
+                ROW = Me.DataGridView1.Rows(e.RowIndex)
+                TextBox6.Text = ROW.Cells("candidate").Value.ToString
+                TextBox2.Text = ROW.Cells("Personality").Value.ToString
+                TextBox3.Text = ROW.Cells("Uniqueness").Value.ToString
+                TextBox4.Text = ROW.Cells("Poise").Value.ToString
+                TextBox5.Text = ROW.Cells("AudienceImp").Value.ToString
+                TextBox1.Text = ROW.Cells("fantasy_total3").Value.ToString
+                Button8.Enabled = True
+
+            End If
+        End If
+    End Sub
+
+    Private Sub TextBox6_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox6.TextChanged
+
+    End Sub
+
+    Private Sub TextBox3_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
+
+        If TextBox3.Text >= 36 Then
+            MsgBox("Value must Less than 35%")
+        End If
+    End Sub
+
+    Private Sub TextBox4_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
+        
+        If TextBox4.Text >= 31 Then
+            MsgBox("Value must Less than 30%")
+        End If
+    End Sub
+
+    Private Sub Label8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label8.Click
+
+    End Sub
+
+    Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Me.Close()
+        Form1.Show()
+
+    End Sub
+End Class

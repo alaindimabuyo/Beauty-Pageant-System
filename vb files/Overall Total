@@ -1,0 +1,176 @@
+Imports MySql.Data.MySqlClient
+Imports System.IO
+Imports System.Data
+Public Class totals
+    Dim BindingSource1 As New BindingSource
+    Public dbconn As New MySqlConnection
+    Public sql As String
+    Public dbcomm As MySqlCommand
+    Public dbread As MySqlDataReader
+    Public dadap As MySqlDataAdapter
+    Public ds As DataSet
+    Public dbdataset As DataTable
+
+
+
+
+
+    Private Sub totals_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        dbconn = New MySqlConnection("Data Source=localhost;user id=root;database=pageant;")
+        Try
+            dbconn.Open()
+        Catch ex As Exception
+            MsgBox("Error in connection, please check Database and connection server.")
+        End Try
+
+        
+        sql = "SELECT candidate_no, fantasy_total , Talent_Total, formalweartotal, blackandwhitetotal, swimweartotal, questiontotal FROM contestants INNER JOIN fantasy_total ON fantasy_total.`Candidate` = contestants.candidate_id INNER JOIN talenttotal ON talenttotal.`Candidate` = fantasy_total.candidate INNER JOIN formalweartotal ON formalweartotal.`Candidate` = talenttotal.`Candidate` INNER JOIN blackandwhitetotal ON blackandwhitetotal.`Candidate` = formalweartotal.`Candidate` INNER JOIN swim_wear_total ON swim_wear_total.`Candidate` = blackandwhitetotal.`Candidate`  INNER JOIN question_total	 ON question_total.`Candidate` = fantasy_total.candidate"
+        dbcomm = New MySqlCommand(sql, dbconn)
+        dbcomm = New MySqlCommand(sql, dbconn)
+        dadap = New MySqlDataAdapter(dbcomm)
+        ds = New DataSet
+        dadap.Fill(ds, "overall_total")
+        dbconn.Close()
+        DataGridView1.DataSource = ds
+        DataGridView1.DataMember = "overall_total"
+
+
+
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        Me.Close()
+
+    End Sub
+
+    Private Sub DataGridView1_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        
+        Dim ROW As DataGridViewRow
+        If e.RowIndex >= 0 Then
+
+            ' Button7.Enabled = True
+            ROW = Me.DataGridView1.Rows(e.RowIndex)
+            TextBox6.Text = ROW.Cells("candidate_no").Value.ToString
+            TextBox2.Text = ROW.Cells("fantasy_total").Value.ToString
+            TextBox3.Text = ROW.Cells("talent_total").Value.ToString
+            TextBox4.Text = ROW.Cells("formalweartotal").Value.ToString
+            TextBox5.Text = ROW.Cells("blackandwhitetotal").Value.ToString
+            TextBox7.Text = ROW.Cells("swimweartotal").Value.ToString
+            TextBox8.Text = ROW.Cells("questiontotal").Value.ToString
+
+            
+
+        End If
+
+
+    End Sub
+
+   
+
+    Private Sub Button3_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        Me.Hide()
+        Form1.Show()
+
+    End Sub
+
+    Private Sub TextBox7_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+       
+
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        
+
+    End Sub
+
+
+    Public Sub refreshdatagrid()
+        sql = "select * from overall_total"
+        dbcomm = New MySqlCommand(sql, dbconn)
+        dadap = New MySqlDataAdapter(dbcomm)
+        ds = New DataSet
+        dadap.Fill(ds, "overall_total")
+        dbconn.Close()
+        DataGridView1.DataSource = ds
+        DataGridView1.DataMember = "overall_total"
+
+    End Sub
+
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim txt2, txt3, txt4 As Single
+
+        Dim sum As String
+
+        txt2 = TextBox2.Text
+
+        txt3 = TextBox3.Text
+
+        txt4 = TextBox4.Text
+
+
+
+        sum = (txt3 + txt2 + txt4 / 3)
+
+        TextBox1.Text = sum
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+
+
+
+    End Sub
+
+    Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
+        Dim txt2, txt3, txt4, txt5, txt7, txt8 As Single
+
+        Dim sum As String
+
+        txt2 = TextBox2.Text
+
+        txt3 = TextBox3.Text
+
+        txt4 = TextBox4.Text
+
+        txt5 = TextBox5.Text
+
+        txt7 = TextBox7.Text
+        txt8 = TextBox8.Text
+
+
+
+        sum = (txt3 + txt2 + txt4 + txt5 + txt7 + txt8)
+
+        TextBox1.Text = sum
+       
+        If TextBox5.Text >= 101 Then
+            MsgBox("Value must Less than 100")
+        End If
+
+        dbconn.Open()
+        sql = "update overall_total set fantasy_total = '" & TextBox2.Text & "', talent_total = '" & TextBox3.Text & "', swimwear_total = '" & TextBox4.Text & "' , total_formal_wear = '" & TextBox5.Text & "', blackandwhite_total ='" & TextBox7.Text & "', q_a_total ='" & TextBox8.Text & "', overall ='" & TextBox1.Text & "'where candidate = '" & TextBox6.Text & "'"
+
+        dbcomm = New MySqlCommand(sql, dbconn)
+        dbread = dbcomm.ExecuteReader
+        MsgBox("USER SUCCESSFULY UPDATED")
+        dbconn.Close()
+    End Sub
+
+
+End Class
